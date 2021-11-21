@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
   initLoginForm(): void {
     this.loginForm = this.formBuilder.group({
       username: [null, [Validators.required]],
-      password: [null, [Validators.required, Validators.minLength(6)]],
+      password: [null, [Validators.required, Validators.minLength(3)]],
       role: ['ROLE_ADMIN', [Validators.required]],
       rememberMe: [false]
     });
@@ -48,6 +48,7 @@ export class LoginComponent implements OnInit {
 
     this.authService.login(this.loginForm.value)
     .subscribe(res => {
+      console.log(res);
       this.authService.setDeliveryAuthData(res.id_token);
       this.authService.setToken(res.id_token);
       this.checkAuthoritiesAndRedirect();

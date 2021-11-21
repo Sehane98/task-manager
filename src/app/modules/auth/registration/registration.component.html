@@ -1,0 +1,43 @@
+<div class="animated fadeIn center">
+  <div class="row login-container">
+
+    <div class="col-lg-4 logo-side">
+      <h1>Do you have an account?</h1>
+      <p class="text-center">Login your account</p>
+      <button class="btn btn-primary sign-up" routerLink="/auth/login">Sign in</button>
+      <img src="./assets/img/icons/login.png" class="">
+    </div>
+    <div class="col-lg-8 position-relative bg-white p-0">
+        <div class="login-form center">
+          <div class="card-body p-0">
+            <form [formGroup]="loginForm" (ngSubmit)="submit()">
+              <h1 class="login-text">Create your account</h1>
+  
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Username</mat-label>
+                <input type="text" matInput autocomplete="username" placeholder="Username" formControlName="username">
+                <mat-icon matSuffix>person</mat-icon>
+              </mat-form-field>
+  
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Password</mat-label>
+                <input type="password" matInput autocomplete="password" placeholder="Password" formControlName="password">
+                <mat-icon matSuffix>lock</mat-icon>
+              </mat-form-field>
+            
+            <div class="row">
+                <div class="col-sm-12 submit">
+                  <button type="submit"
+                          class="btn btn-primary px-4"
+                          [disabled]="loginForm.invalid || loginLoading">
+                    <i class="fa fa-spinner fa-pulse fa-3x fa-fw" *ngIf="loginLoading; else btnText"></i>
+                    <ng-template #btnText>Sign up</ng-template>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>

@@ -8,9 +8,10 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
 import {MatInputModule} from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
+import { RegistrationComponent } from './registration/registration.component';
 
 @NgModule({
-  declarations: [LoginComponent],
+  declarations: [LoginComponent, RegistrationComponent],
   imports: [
     CommonModule,
     AuthRoutingModule,

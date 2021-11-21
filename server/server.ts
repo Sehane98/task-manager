@@ -12,7 +12,7 @@ server.post('/login', (req, res, next) => {
   const users = readUsers();
 
   const user = users.filter(
-    u => u.username === req.body.username && u.password === req.body.password
+    u => u.username === req.body.username && u.password === req.body.password && u.role === req.body.role
   )[0];
 
   if (user) {
@@ -24,25 +24,34 @@ server.post('/login', (req, res, next) => {
 
 server.post('/register', (req, res) => {
   const users = readUsers();
+  const user = db.users.filter(u => u.username === req.body.username)[0];
+
+  if (user === undefined || user === null) {
+    res.send({
+      ...formatUser(req.body),
+      id_token: checkIfAdmin(req.body), users: db.users
+    });
+    db.users.push(req.body);
+  } else {
+    res.status(500).send(JSON.stringify({title: 'User already exists'}));
+  }
+});
+
+server.use('/users', (req, res, next) => {
+  const users = readUsers();
   const user = users.filter(u => u.username === req.body.username)[0];
 
   if (user === undefined || user === null) {
     res.send({
       ...formatUser(req.body),
-      id_token: checkIfAdmin(req.body)
+      id_token: checkIfAdmin(req.body), users: db.users
     });
     db.users.push(req.body);
   } else {
-    res.status(500).send('User already exists');
+    res.status(500).send(JSON.stringify({title: 'User already exists'}));
   }
-});
+  next();
 
-server.use('/users', (req, res, next) => {
-  if (isAuthorized(req) || req.query.bypassAuth === 'true') {
-    next();
-  } else {
-    res.sendStatus(401);
-  }
 });
 
 server.use(router);
@@ -59,12 +68,12 @@ function formatUser(user) {
 function checkIfAdmin(user, bypassToken = false) {
   console.log(user)
   return user.role === ('ROLE_ADMIN' || 'ROLE_USER') || bypassToken === true
-    ? 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkZXZlbG9wZXIiLCJhdXRoIjoiUk9MRV9BRE1JTiIsImV4cCI6MTYzNzUxNTQzMn0.3J88cu7W2h_pT_uJrB5scucm_kCSCT1LlhFgQ-Zg-7riRdcrVN8Q3hdpLP3l3qYja06sOlKUYTbnwHVebwWWiQ' 
-    : 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkZXZlbG9wZXIiLCJhdXRoIjoiUk9MRV9BRE1JTiIsImV4cCI6MTYzNzUxNTQzMn0.3J88cu7W2h_pT_uJrB5scucm_kCSCT1LlhFgQ-Zg-7riRdcrVN8Q3hdpLP3l3qYja06sOlKUYTbnwHVebwWWiQ'
+    ? 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkZXZlbG9wZXIiLCJhdXRoIjoiUk9MRV9BRE1JTiIsImV4cCI6MTYzNzYxODAzNH0.m6-xlCcCPxtZvdypOZF-2Shb3txHriwvsn4UM3O_acrhZpaFTT3jAdzx10orKXXfX_zdw1sKg_U_L1A3ozmmhQ' 
+    : 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkZXZlbG9wZXIiLCJhdXRoIjoiUk9MRV9BRE1JTiIsImV4cCI6MTYzNzYxODAzNH0.m6-xlCcCPxtZvdypOZF-2Shb3txHriwvsn4UM3O_acrhZpaFTT3jAdzx10orKXXfX_zdw1sKg_U_L1A3ozmmhQ'
 }
 
 function isAuthorized(req) {
-  return req.headers.authorization === 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkZXZlbG9wZXIiLCJhdXRoIjoiUk9MRV9BRE1JTiIsImV4cCI6MTYzNzUxNTQzMn0.3J88cu7W2h_pT_uJrB5scucm_kCSCT1LlhFgQ-Zg-7riRdcrVN8Q3hdpLP3l3qYja06sOlKUYTbnwHVebwWWiQ' ? true : false;
+  return req.headers.authorization === 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkZXZlbG9wZXIiLCJhdXRoIjoiUk9MRV9BRE1JTiIsImV4cCI6MTYzNzYxODAzNH0.m6-xlCcCPxtZvdypOZF-2Shb3txHriwvsn4UM3O_acrhZpaFTT3jAdzx10orKXXfX_zdw1sKg_U_L1A3ozmmhQ' ? true : false;
 }
 
 function readUsers() {

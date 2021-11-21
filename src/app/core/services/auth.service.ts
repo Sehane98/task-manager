@@ -26,6 +26,10 @@ export class AuthService {
     return this.http.post(`${HttpConf.URL.auth}`, body);
   }
 
+  registration(body: any): Observable<any> {
+    return this.http.post(`${HttpConf.URL.registration}`, body);
+  }
+
   setDeliveryAuthData(jwtToken: string): void {
     const first = jwtToken.indexOf('.');
     const second = jwtToken.lastIndexOf('.');
@@ -67,6 +71,7 @@ export class AuthService {
   }
 
   getAuthorities(): Authority[] {
+    console.log('here')
     const authData = this.getDeliveryAuthData();
     return authData ? authData.auth.split(',') : [];
   }
@@ -82,6 +87,7 @@ export class AuthService {
   }
 
   isAuthenticated(): boolean {
+    console.log(!!this.getToken())
     return !!this.getToken();
   }
 
