@@ -1,0 +1,24 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "admin",
+      "fullName": "Sehane Mzadeh",
+      "email": "sehane@gmail.com",
+      "password": "admin",
+      "role": [
+        "ROLE_ADMIN"
+      ]
+    },
+    {
+      "id": 2,
+      "username": "user",
+      "fullName": "Sehane Mzadeh",
+      "email": "sehane@mail.com",
+      "password": "user",
+      "role": [
+        "ROLE_USER"
+      ]
+    }
+  ]
+}

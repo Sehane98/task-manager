@@ -1,0 +1,58 @@
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { environment as env } from '../../../environments/environment';
+import filter from '../../shared/utils/filter.js';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class CoreService {
+  constructor(private http: HttpClient) {}
+  public triggerGetRangeByTariff: BehaviorSubject<boolean> = new BehaviorSubject(null as any);
+
+  reformatParams(params: any = {}) {
+    let new_params = {};
+    Object.keys(params).forEach((key) => {
+      new_params[filter[key] ? filter[key] : key] = params[key];
+    });
+    return new_params;
+  }
+  
+  clean(params) {
+    Object.keys(params).forEach((key) => {
+      if (params[key] === '' || params[key] === null || params[key] === 0) {
+        delete params[key];
+      }
+    });
+    return params;
+  }
+
+  get(url: string, params: any = {}, observe: any = 'body'): Observable<any> {
+    if (params !== {}) {
+      params = this.reformatParams(params);
+    }
+    return this.http.get(url, {
+      params: this.clean(params),
+      observe: 'response',
+    });
+  }
+
+  upload(file: any, url: string, root: string = 'root'): Observable<any> {
+    var f = new FormData();
+    f.append('document', file);
+    return this.http.post(url, f);
+  }
+
+  post(url: string, params: {} = {}, root: string = 'root'): Observable<any> {
+    return this.http.post(url, params);
+  }
+
+  put(url: string, params: {} = {}, root: string = 'root'): Observable<any> {
+    return this.http.put(url, params);
+  }
+
+  delete(url: string, params: {} = {}, root: string = 'root'): Observable<any> {
+    return this.http.delete(url, params);
+  }
+}
