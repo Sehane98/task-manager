@@ -1,42 +1,47 @@
-import { HttpErrorResponse } from "@angular/common/http";
-import { Component, OnInit, AfterViewInit, OnDestroy, ElementRef, Renderer2, ChangeDetectorRef } from "@angular/core";
-import { Router } from "@angular/router";
-import { interval, forkJoin, timer } from "rxjs";
-import { distinctUntilChanged, takeUntil, filter, takeWhile, repeat, timeInterval, startWith, mergeMap, retryWhen, delayWhen } from "rxjs/operators";
-import { Authority } from "src/app/core/enums/authority.enum";
+import { BreakpointObserver } from "@angular/cdk/layout";
+import { Component, OnInit, ElementRef, Renderer2, ChangeDetectorRef, ViewChild } from "@angular/core";
 import { AuthService } from "src/app/core/services/auth.service";
-
+import { delay } from 'rxjs/operators'; 
+import { MatSidenav } from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './main-layout.component.html',
-  styleUrls: ['./main-layout.component.css']
+  styleUrls: ['./main-layout.component.scss']
 })
-export class MainLayoutComponent implements OnInit, OnDestroy {
+export class MainLayoutComponent implements OnInit {
+  @ViewChild(MatSidenav)
+  sidenav!: MatSidenav;
 
+  ngAfterViewInit() {
+    this.observer
+      .observe(['(max-width: 800px)'])
+      .pipe(delay(1))
+      .subscribe((res) => {
+        if (res.matches) {
+          this.sidenav.mode = 'over';
+          this.sidenav.close();
+        } else {
+          this.sidenav.mode = 'side';
+          this.sidenav.open();
+        }
+      });
+  }
 
-  currentUser = this.authService.getUserName();
-
-
+  currentUser = this.authService.getCurrentUser();
 
   constructor(private authService: AuthService,
-              private elementRef: ElementRef,
-              private renderer: Renderer2,
-              private router: Router,
-              private cdr: ChangeDetectorRef,
+              private observer: BreakpointObserver,
             ) {
   }
 
   ngOnInit(): void {
-
+    console.log(this.currentUser)
   }
 
-
-
-  ngOnDestroy(): void {
-
+  logout(): void {
+    this.authService.logout();
   }
-
-
 
 }
+

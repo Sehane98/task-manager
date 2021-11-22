@@ -6,7 +6,60 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 // Import styles
 // @import "~@coreui/scss";
 
+
+.app-body {
+    height: 100%;
+    background-color: bisque;
+}
+
+table {
+    width: 100%;
+}
+
+i.fa {
+    font-size: 14px;
+    color: #fff
+}
+
+.submit-button-group {
+    display: flex;
+    justify-content: space-around;
+    button {
+        width: 45%;
+    }
+}
+
+.actions {
+    color: #345;
+    mat-icon {
+        margin-right: 5px;
+        font-size: 24px;
+        cursor: pointer;
+    }
+}
+
+.filter {
+    mat-form-field {
+        margin-right: 10px;
+        max-width: 150px
+    }
+}
+
+.p-0 {
+    padding: 0;
+}
+
+.pl-0 {
+    padding-left: 0;
+}
+
+.pr-0 {
+    padding-right: 0;
+}
+
+.m-0 {
+    margin: 0
+}
+
 @import "../node_modules/@coreui/coreui/scss/coreui";
 @import "~@angular/material/prebuilt-themes/indigo-pink.css"
-
-

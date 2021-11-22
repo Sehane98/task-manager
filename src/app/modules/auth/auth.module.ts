@@ -9,6 +9,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import {MatInputModule} from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
 import { RegistrationComponent } from './registration/registration.component';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [LoginComponent, RegistrationComponent],
@@ -20,6 +21,7 @@ import { RegistrationComponent } from './registration/registration.component';
     MatRadioModule,
     MatInputModule,
     MatIconModule,
+    MatButtonModule
   ]
 })
 export class AuthModule { }

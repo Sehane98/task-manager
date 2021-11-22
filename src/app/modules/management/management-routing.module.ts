@@ -5,9 +5,21 @@ import { Routes, RouterModule } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./user/user.module').then(m => m.UserModule),
+    pathMatch: 'full',
+    redirectTo: 'customer'
+  },
+  {
+    path: 'customer',
+    loadChildren: () => import('./customer/customer.module').then(m => m.CustomerModule),
     data: {
-      title: 'User'
+      title: 'Customers'
+    }
+  },
+  {
+    path: 'task',
+    loadChildren: () => import('./task/task.module').then(m => m.TaskModule),
+    data: {
+      title: 'Tasks'
     }
   }
   

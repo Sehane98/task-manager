@@ -1,15 +1,35 @@
-<div class="animated fadeIn">
+<mat-toolbar>
+  <button mat-icon-button class="example-icon" *ngIf="sidenav.mode === 'over'" (click)="sidenav.toggle()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>Task Managment</span>
+  <span class="example-spacer"></span>
+  <span>{{ currentUser?.organizationName }}</span>
+  <button mat-icon-button class="example-icon" (click)="logout()">
+    <mat-icon>logout</mat-icon>
+  </button>
+</mat-toolbar>
 
-  <div class="app-body">
+<mat-sidenav-container>
+  <mat-sidenav #sidenav="matSidenav" class="mat-elevation-z8">
 
-    <main class="main">
-      <div class="container-fluid">
-        
+      <h4 class="name">{{ currentUser?.username }}</h4>
+      <p class="designation"> {{ currentUser?.email }}</p>
+
+      <mat-divider></mat-divider>
+      <button *ngIf="currentUser.role === 'ROLE_ADMIN'" mat-button class="menu-button" [routerLink]="'customer'">
+          <mat-icon>person</mat-icon>
+          <span>Customer</span>
+      </button>
+      <button *ngIf="currentUser.role === 'ROLE_USER'" mat-button class="menu-button" [routerLink]="'task'">
+        <mat-icon>task</mat-icon>
+        <span>Task</span>
+      </button>
+
+  </mat-sidenav>
+  <mat-sidenav-content>
+      <div class="content mat-elevation-z8">
         <router-outlet></router-outlet>
       </div>
-    </main>
-
-  </div>
-
-
-</div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

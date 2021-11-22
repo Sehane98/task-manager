@@ -1,34 +1,57 @@
 <div class="animated fadeIn center">
   <div class="row login-container">
 
-    <div class="col-lg-4 logo-side">
+    <div class="col-lg-5 logo-side">
       <h1>Do you have an account?</h1>
       <p class="text-center">Login your account</p>
-      <button class="btn btn-primary sign-up" routerLink="/auth/login">Sign in</button>
+      <button mat-stroked-button color="primary" class="sign-in" routerLink="/auth/login">Sign in</button>
       <img src="./assets/img/icons/login.png" class="">
     </div>
-    <div class="col-lg-8 position-relative bg-white p-0">
+    <div class="col-lg-7 position-relative bg-white p-0">
         <div class="login-form center">
           <div class="card-body p-0">
             <form [formGroup]="loginForm" (ngSubmit)="submit()">
               <h1 class="login-text">Create your account</h1>
   
               <mat-form-field class="w-100" appearance="outline">
-                <mat-label>Username</mat-label>
-                <input type="text" matInput autocomplete="username" placeholder="Username" formControlName="username">
-                <mat-icon matSuffix>person</mat-icon>
+                <mat-label>Organization name</mat-label>
+                <input type="text" matInput autocomplete="organizationName" placeholder="Organization name" formControlName="organizationName">
               </mat-form-field>
-  
+
               <mat-form-field class="w-100" appearance="outline">
-                <mat-label>Password</mat-label>
-                <input type="password" matInput autocomplete="password" placeholder="Password" formControlName="password">
-                <mat-icon matSuffix>lock</mat-icon>
+                <mat-label>Phone</mat-label>
+                <input type="text" matInput autocomplete="phone" placeholder="Phone number" formControlName="phone">
               </mat-form-field>
-            
-            <div class="row">
+
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Address</mat-label>
+                <input type="text" matInput autocomplete="address" placeholder="Address" formControlName="address">
+              </mat-form-field>
+
+              <div class="row">
+                  <div class="col-6 ">
+                    <mat-form-field class="w-100" appearance="outline">
+                        <mat-label>Username</mat-label>
+                        <input type="text" matInput autocomplete="username" placeholder="Username" formControlName="username">
+                    </mat-form-field>
+                  </div>
+                  <div class="col-6 ">      
+                    <mat-form-field class="w-100" appearance="outline">
+                        <mat-label>Password</mat-label>
+                        <input type="password" matInput autocomplete="password" placeholder="Password" formControlName="password">
+                      </mat-form-field>
+                  </div>
+              </div>  
+              
+              <mat-form-field  class="w-100" appearance="outline">
+                <mat-label>Email</mat-label>
+                <input type="email" matInput autocomplete="email" placeholder="Email" formControlName="email">
+              </mat-form-field>
+
+              <div class="row">
                 <div class="col-sm-12 submit">
                   <button type="submit"
-                          class="btn btn-primary px-4"
+                          mat-flat-button color="primary"
                           [disabled]="loginForm.invalid || loginLoading">
                     <i class="fa fa-spinner fa-pulse fa-3x fa-fw" *ngIf="loginLoading; else btnText"></i>
                     <ng-template #btnText>Sign up</ng-template>
@@ -36,6 +59,9 @@
                 </div>
               </div>
             </form>
+            <div class="d-lg-none d-block text-center mt-3">
+                <span>Do you have an account? </span> <b routerLink="/auth/login"><u> Sign in</u></b>
+            </div>
           </div>
         </div>
       </div>

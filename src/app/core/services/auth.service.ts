@@ -22,8 +22,8 @@ export class AuthService {
     name: 'login',
     url: HttpConf.URL.auth
   })
-  login(body: any): Observable<any> {
-    return this.http.post(`${HttpConf.URL.auth}`, body);
+  login(body: any, url: string): Observable<any> {
+    return this.http.post(url, body);
   }
 
   registration(body: any): Observable<any> {
@@ -70,10 +70,9 @@ export class AuthService {
     return authData ? authData.sub : '';
   }
 
-  getAuthorities(): Authority[] {
-    console.log('here')
+  getAuthorities() {
     const authData = this.getDeliveryAuthData();
-    return authData ? authData.auth.split(',') : [];
+    return authData ? authData  : [];
   }
 
   clearLsItems(): void {
@@ -83,12 +82,19 @@ export class AuthService {
   }
 
   private getDeliveryAuthData(): any {
-    return JSON.parse(localStorage.getItem(LsItems.TASK_MANAGER_AUTH_DATA)!);
+    return JSON.parse(localStorage.getItem(LsItems.TASK_MANAGER_USER)!);
   }
 
   isAuthenticated(): boolean {
-    console.log(!!this.getToken())
     return !!this.getToken();
+  }
+
+  setCurrentUser(user): void {
+    localStorage.setItem(LsItems.TASK_MANAGER_USER, JSON.stringify(user));
+  }
+
+  getCurrentUser() {
+    return JSON.parse(localStorage.getItem(LsItems.TASK_MANAGER_USER)!);
   }
 
 }

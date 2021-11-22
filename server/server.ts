@@ -5,6 +5,7 @@ const middlewares = jsonServer.defaults();
 const db = require('./db.json');
 const fs = require('fs');
 
+
 server.use(middlewares);
 server.use(jsonServer.bodyParser);
 
@@ -22,9 +23,23 @@ server.post('/login', (req, res, next) => {
   }
 });
 
+server.post('/login-customer', (req, res, next) => { 
+  const customers = readCustomers();
+
+  const customer = customers.filter(
+    u => u.email === req.body.email && u.password === req.body.password 
+  )[0];
+
+  if (customer) {
+    res.send({ ...formatUser(customer), id_token: checkIfAdmin(customer) });
+  } else {
+    res.status(401).send(JSON.stringify({title: 'Incorrect email or password'}));
+  }
+});
+
 server.post('/register', (req, res) => {
   const users = readUsers();
-  const user = db.users.filter(u => u.username === req.body.username)[0];
+  const user = users.filter(u => u.username === req.body.username)[0];
 
   if (user === undefined || user === null) {
     res.send({
@@ -68,16 +83,22 @@ function formatUser(user) {
 function checkIfAdmin(user, bypassToken = false) {
   console.log(user)
   return user.role === ('ROLE_ADMIN' || 'ROLE_USER') || bypassToken === true
-    ? 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkZXZlbG9wZXIiLCJhdXRoIjoiUk9MRV9BRE1JTiIsImV4cCI6MTYzNzYxODAzNH0.m6-xlCcCPxtZvdypOZF-2Shb3txHriwvsn4UM3O_acrhZpaFTT3jAdzx10orKXXfX_zdw1sKg_U_L1A3ozmmhQ' 
-    : 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkZXZlbG9wZXIiLCJhdXRoIjoiUk9MRV9BRE1JTiIsImV4cCI6MTYzNzYxODAzNH0.m6-xlCcCPxtZvdypOZF-2Shb3txHriwvsn4UM3O_acrhZpaFTT3jAdzx10orKXXfX_zdw1sKg_U_L1A3ozmmhQ'
+    ? 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkZXZlbG9wZXIiLCJhdXRoIjoiUk9MRV9BRE1JTiIsImV4cCI6MTYzNzY5MTY4Nn0.GCd9tDd9i7N66QET71laZIBzjWILqnP4LVG50kBHen0v6hREUs2FBFvnMQy5y4D05vJr5OyCx0t_kOBVQ5AVMQ' 
+    : 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkZXZlbG9wZXIiLCJhdXRoIjoiUk9MRV9BRE1JTiIsImV4cCI6MTYzNzY5MTY4Nn0.GCd9tDd9i7N66QET71laZIBzjWILqnP4LVG50kBHen0v6hREUs2FBFvnMQy5y4D05vJr5OyCx0t_kOBVQ5AVMQ'
 }
 
 function isAuthorized(req) {
-  return req.headers.authorization === 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkZXZlbG9wZXIiLCJhdXRoIjoiUk9MRV9BRE1JTiIsImV4cCI6MTYzNzYxODAzNH0.m6-xlCcCPxtZvdypOZF-2Shb3txHriwvsn4UM3O_acrhZpaFTT3jAdzx10orKXXfX_zdw1sKg_U_L1A3ozmmhQ' ? true : false;
+  return req.headers.authorization === 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkZXZlbG9wZXIiLCJhdXRoIjoiUk9MRV9BRE1JTiIsImV4cCI6MTYzNzY5MTY4Nn0.GCd9tDd9i7N66QET71laZIBzjWILqnP4LVG50kBHen0v6hREUs2FBFvnMQy5y4D05vJr5OyCx0t_kOBVQ5AVMQ' ? true : false;
 }
 
 function readUsers() {
   const dbRaw = fs.readFileSync('./server/db.json');  
   const users = JSON.parse(dbRaw).users
   return users;
+}
+
+function readCustomers() {
+  const dbRaw = fs.readFileSync('./server/db.json');  
+  const customers = JSON.parse(dbRaw).customers
+  return customers;
 }

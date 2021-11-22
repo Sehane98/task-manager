@@ -1,15 +1,21 @@
 <div class="animated fadeIn center">
   <div class="row login-container">
-    <div class="col-lg-8 position-relative bg-white p-0">
+    <div class="col-lg-7 position-relative bg-white p-0">
       <div class="login-form center">
         <div class="card-body p-0">
           <form [formGroup]="loginForm" (ngSubmit)="submit()">
             <h1 class="login-text">Sign in to Task manager</h1>
 
-            <mat-form-field class="w-100" appearance="outline">
+            <mat-form-field class="w-100" appearance="outline" *ngIf="loginForm.get('role')?.value === 'ROLE_ADMIN'">
               <mat-label>Username</mat-label>
               <input type="text" matInput autocomplete="username" placeholder="Username" formControlName="username">
               <mat-icon matSuffix>person</mat-icon>
+            </mat-form-field>
+
+            <mat-form-field class="w-100" appearance="outline" *ngIf="loginForm.get('role')?.value === 'ROLE_USER'">
+              <mat-label>Email</mat-label>
+              <input type="text" matInput autocomplete="email" placeholder="Email" formControlName="email">
+              <mat-icon matSuffix>email</mat-icon>
             </mat-form-field>
 
             <mat-form-field class="w-100" appearance="outline">
@@ -18,7 +24,7 @@
               <mat-icon matSuffix>lock</mat-icon>
             </mat-form-field>
             
-            <mat-radio-group formControlName="role" aria-label="Select your role" class="radio_button">
+            <mat-radio-group formControlName="role" aria-label="Select your role"  (change)="changeRole($event)" class="radio_button">
               <mat-radio-button value="ROLE_ADMIN" class="mr-5">Administrator</mat-radio-button>
               <mat-radio-button value="ROLE_USER">User</mat-radio-button>
             </mat-radio-group>
@@ -26,21 +32,24 @@
             <div class="row">
               <div class="col-sm-12 submit">
                 <button type="submit"
-                        class="btn btn-primary px-4"
+                        mat-flat-button color="primary" 
                         [disabled]="loginForm.invalid || loginLoading">
-                  <i class="fa fa-spinner fa-pulse fa-3x fa-fw" *ngIf="loginLoading; else btnText"></i>
+                  <i class="fa fa-spinner fa-pulse fa-2x fa-fw" *ngIf="loginLoading; else btnText"></i>
                   <ng-template #btnText>Sign in</ng-template>
                 </button>
               </div>
             </div>
           </form>
+          <div class="d-lg-none d-block text-center mt-3">
+            <span>Don't you have an account? </span> <b routerLink="/auth/registration"><u> Sign up</u></b>
+          </div>
         </div>
       </div>
     </div>
-    <div class="col-lg-4 logo-side">
+    <div class="col-lg-5 logo-side">
       <h1>Din't Have an Account</h1>
       <p class="text-center">Simply Create your account by clicking the Signup Button</p>
-      <button class="btn btn-primary sign-up" routerLink="/auth/registration">Sign up</button>
+      <button mat-stroked-button color="primary" routerLink="/auth/registration">Sign up</button>
       <img src="./assets/img/icons/login.png" class="">
     </div>
   </div>

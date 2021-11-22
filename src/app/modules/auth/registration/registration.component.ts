@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Authority } from 'src/app/core/enums/authority.enum';
 import { HttpConf } from 'src/app/core/http/http.conf';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { CoreService } from 'src/app/core/services/core.service';
@@ -29,17 +30,20 @@ export class RegistrationComponent implements OnInit {
 
   initLoginForm(): void {
     this.loginForm = this.formBuilder.group({
+      organizationName: [null, [Validators.required]],
+      phone: [null, [Validators.required]],
+      address: [null, [Validators.required]],
       username: [null, [Validators.required]],
       password: [null, [Validators.required, Validators.minLength(6)]],
+      email: [null, [Validators.required, Validators.email]],
       role: ['ROLE_ADMIN', [Validators.required]],
-      rememberMe: [false],
     });
   }
 
-  submit(): void {
+  submit(): void {  
     if (this.loginForm.invalid) {
       return;
-    }console.log('here')
+    }
 
     this.loginForm.disable();
     this.loginLoading = true;
@@ -48,6 +52,7 @@ export class RegistrationComponent implements OnInit {
       (res) => {
         this.authService.setDeliveryAuthData(res.id_token);
         this.authService.setToken(res.id_token);
+        this.authService.setCurrentUser(res);
         this.checkAuthoritiesAndRedirect();
       },
       (err) => {
@@ -61,6 +66,10 @@ export class RegistrationComponent implements OnInit {
   checkAuthoritiesAndRedirect(): void {
     const auth = this.authService.getAuthorities();
     let route = '/';
+    
+    if (auth.role === Authority.ROLE_USER ) {
+      route += 'task';
+    }
 
     this.uiService.routeWithDelay([route], 'Successfully registered');
   }

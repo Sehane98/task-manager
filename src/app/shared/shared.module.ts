@@ -5,18 +5,32 @@ import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { RouterModule } from "@angular/router";
 import { AuthLayoutComponent } from "./containers/auth-layout/auth-layout.component";
 import { MainLayoutComponent } from "./containers/main-layout/main-layout.component";
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDividerModule } from '@angular/material/divider';
+import {ConfirmDeleteComponent} from './components/confirm-delete/confirm-delete.component';
+import { MatDialogModule } from "@angular/material/dialog";
 
 @NgModule({
   declarations: [
     MainLayoutComponent,
     AuthLayoutComponent,
-
+    ConfirmDeleteComponent
   ],
   imports: [
     CommonModule,
     RouterModule,
     ReactiveFormsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatButtonModule,
+    MatIconModule,
+    MatDividerModule,
+    MatDialogModule,
+
   ],
 })
 export class SharedModule { }

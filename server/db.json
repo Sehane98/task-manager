@@ -7,79 +7,95 @@
       "email": "sehane@gmail.com",
       "password": "admin123",
       "role": "ROLE_ADMIN"
-    },
-    {
-      "id": 2,
-      "username": "user",
-      "fullName": "Sehane Mzadeh",
-      "email": "sehane@mail.com",
-      "password": "user123",
-      "role": "ROLE_USER"
-    },
-    {
-      "username": "test",
-      "password": "test123",
-      "role": "ROLE_ADMIN",
-      "rememberMe": false,
-      "id": 3
-    },
-    {
-      "username": "yeni",
-      "password": "yeniyeni",
-      "role": "ROLE_ADMIN",
-      "rememberMe": false,
-      "id": 4
-    },
-    {
-      "username": "yeni",
-      "password": "yeniyeni",
-      "role": "ROLE_ADMIN",
-      "rememberMe": false,
-      "id": 5
-    },
-    {
-      "username": "yeni",
-      "password": "yeniyeni",
-      "role": "ROLE_ADMIN",
-      "rememberMe": false,
-      "id": 6
-    },
-    {
-      "username": "yeni",
-      "password": "yeniyeni",
-      "role": "ROLE_ADMIN",
-      "rememberMe": false,
-      "id": 7
-    },
-    {
-      "username": "yeni",
-      "password": "yeniyeni",
-      "role": "ROLE_ADMIN",
-      "rememberMe": false,
-      "id": 8
-    },
-    {
-      "username": "yeni",
-      "password": "yeniyeni",
-      "role": "ROLE_ADMIN",
-      "rememberMe": false,
-      "id": 9
     }
   ],
-  "posts": [
+  "customers": [
     {
-      "username": "sehane",
-      "password": "sehane123",
-      "role": "ROLE_ADMIN",
-      "rememberMe": false,
+      "name": "Sehane",
+      "password": "defaultPassword",
+      "surname": "Mzadeh",
+      "email": "sehane@gmail.com",
+      "role": "ROLE_USER",
+      "userId": 1,
       "id": 1
     },
     {
-      "username": "sehanejaja",
-      "password": "sehane123aa",
-      "role": "ROLE_ADMIN",
-      "rememberMe": false,
+      "name": "Nezrin",
+      "password": "defaultPassword",
+      "surname": "Shagatova",
+      "email": "nazrin@mail.com",
+      "role": "ROLE_USER",
+      "userId": 1,
       "id": 2
+    },
+    {
+      "name": "Ayten",
+      "password": "defaultPassword",
+      "surname": "Kazimova",
+      "email": "ayten@mail.com",
+      "role": "ROLE_USER",
+      "userId": 1,
+      "id": 3
+    }
+  ],
+  "tasks": [
+    {
+      "title": "Task 1",
+      "description": "Create user",
+      "deadline": "2021-11-23T20:00:00.000Z",
+      "customer": [
+        1,
+        2
+      ],
+      "status": "URGENT",
+      "userId": 1,
+      "id": 1
+    },
+    {
+      "title": "Task 2",
+      "description": "Filter by User id",
+      "deadline": "2021-11-22T20:00:00.000Z",
+      "customer": [
+        1,
+        3
+      ],
+      "status": "HIGH",
+      "userId": 1,
+      "id": 2
+    },
+    {
+      "title": "Task for nazrin",
+      "description": "New task",
+      "deadline": "2021-11-24T20:00:00.000Z",
+      "customer": [
+        1,
+        3
+      ],
+      "status": "NORMAL",
+      "userId": 2,
+      "id": 3
+    },
+    {
+      "title": "new task 2",
+      "description": "new task 2",
+      "deadline": "2021-11-24T20:00:00.000Z",
+      "customer": [
+        1
+      ],
+      "status": "HIGH",
+      "userId": 2,
+      "id": 4
+    },
+    {
+      "title": "task for ayten",
+      "description": "new task",
+      "deadline": "2021-11-26T20:00:00.000Z",
+      "customer": [
+        3
+      ],
+      "status": "LOW",
+      "userId": 2,
+      "id": 5
     }
   ]
 }
