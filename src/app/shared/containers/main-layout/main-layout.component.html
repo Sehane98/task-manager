@@ -4,8 +4,8 @@
   </button>
   <span>Task Managment</span>
   <span class="example-spacer"></span>
-  <span>{{ currentUser?.organizationName }}</span>
-  <span>{{ currentUser?.name + ' ' + currentUser?.surname}}</span>
+  <span *ngIf="currentUser.role === 'ROLE_ADMIN'">{{ currentUser?.organizationName }}</span>
+  <span *ngIf="currentUser.role === 'ROLE_CUSTOMER'">{{ currentUser?.name + ' ' + currentUser?.surname}}</span>
   <button mat-icon-button class="example-icon pr-3" (click)="logout()">
     <mat-icon>logout</mat-icon>
   </button>
@@ -22,7 +22,7 @@
           <mat-icon>person</mat-icon>
           <span>Customer</span>
       </button>
-      <button *ngIf="currentUser.role === 'ROLE_USER'" mat-button class="menu-button" [routerLink]="'task'">
+      <button *ngIf="currentUser.role === 'ROLE_CUSTOMER'" mat-button class="menu-button" [routerLink]="'task'">
         <mat-icon>task</mat-icon>
         <span>Task</span>
       </button>

@@ -67,7 +67,7 @@ export class RegistrationComponent implements OnInit {
     const auth = this.authService.getAuthorities();
     let route = '/';
     
-    if (auth.role === Authority.ROLE_USER ) {
+    if (auth.role === Authority.ROLE_CUSTOMER ) {
       route += 'task';
     }
 

@@ -39,7 +39,7 @@ export class CustomerUpdateComponent implements OnInit {
       password: ['defaultPassword'],
       surname: [null, [Validators.required]],
       email: [null, [Validators.required, Validators.email]],
-      role: ["ROLE_USER"],
+      role: ["ROLE_CUSTOMER"],
       userId: [this.currentUser.id]
     });
 

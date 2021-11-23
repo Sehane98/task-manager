@@ -34,14 +34,14 @@ export class LoginComponent implements OnInit {
     this.loginForm = this.formBuilder.group({
       username: [null, [Validators.required]],
       email: [null],
-      password: [null, [Validators.required, Validators.minLength(3)]],
+      password: [null, [Validators.required, Validators.minLength(6), Validators.pattern(/^[a-zA-Z0-9]+$/)]],
       role: ['ROLE_ADMIN', [Validators.required]],
       rememberMe: [false]
     });
   }
 
   changeRole(e: any) {
-    if (this.loginForm.get('role')?.value === Authority.ROLE_USER) {
+    if (this.loginForm.get('role')?.value === Authority.ROLE_CUSTOMER) {
       this.loginForm.get('email')?.setValidators([Validators.email, Validators.required])
       this.loginForm.get('username')?.clearValidators();
     } else {
@@ -65,7 +65,7 @@ export class LoginComponent implements OnInit {
     this.loginLoading = true;
 
 
-    if (body.role === 'ROLE_USER') {
+    if (body.role === 'ROLE_CUSTOMER') {
       delete body.username
       url = HttpConf.URL.login_customer;
     } else {
@@ -95,7 +95,7 @@ export class LoginComponent implements OnInit {
     const auth = this.authService.getAuthorities();
     let route = '/';
 
-    if (auth.role === Authority.ROLE_USER ) {
+    if (auth.role === Authority.ROLE_CUSTOMER ) {
       route += 'task';
     }
 

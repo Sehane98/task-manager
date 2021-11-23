@@ -12,7 +12,7 @@
               <mat-icon matSuffix>person</mat-icon>
             </mat-form-field>
 
-            <mat-form-field class="w-100" appearance="outline" *ngIf="loginForm.get('role')?.value === 'ROLE_USER'">
+            <mat-form-field class="w-100" appearance="outline" *ngIf="loginForm.get('role')?.value === 'ROLE_CUSTOMER'">
               <mat-label>Email</mat-label>
               <input type="text" matInput autocomplete="email" placeholder="Email" formControlName="email">
               <mat-icon matSuffix>email</mat-icon>
@@ -26,7 +26,7 @@
             
             <mat-radio-group formControlName="role" aria-label="Select your role"  (change)="changeRole($event)" class="radio_button">
               <mat-radio-button value="ROLE_ADMIN" class="mr-5">Administrator</mat-radio-button>
-              <mat-radio-button value="ROLE_USER">User</mat-radio-button>
+              <mat-radio-button value="ROLE_CUSTOMER">Customer</mat-radio-button>
             </mat-radio-group>
   
             <div class="row">

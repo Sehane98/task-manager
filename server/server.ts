@@ -33,7 +33,7 @@ server.post('/login-customer', (req, res, next) => {
   if (customer) {
     res.send({ ...formatUser(customer), id_token: checkIfAdmin(customer) });
   } else {
-    res.status(401).send(JSON.stringify({title: 'Incorrect email or password'}));
+    res.status(401).send(JSON.stringify({title: 'Incorrect email or password', uc: customer}));
   }
 });
 
@@ -88,13 +88,13 @@ function formatUser(user) {
 }
 
 function checkIfAdmin(user, bypassToken = false) {
-  return user.role === ('ROLE_ADMIN' || 'ROLE_USER') || bypassToken === true
-    ? 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkZXZlbG9wZXIiLCJhdXRoIjoiUk9MRV9BRE1JTiIsImV4cCI6MTYzNzY5MTY4Nn0.GCd9tDd9i7N66QET71laZIBzjWILqnP4LVG50kBHen0v6hREUs2FBFvnMQy5y4D05vJr5OyCx0t_kOBVQ5AVMQ' 
-    : 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkZXZlbG9wZXIiLCJhdXRoIjoiUk9MRV9BRE1JTiIsImV4cCI6MTYzNzY5MTY4Nn0.GCd9tDd9i7N66QET71laZIBzjWILqnP4LVG50kBHen0v6hREUs2FBFvnMQy5y4D05vJr5OyCx0t_kOBVQ5AVMQ'
+  return user.role === ('ROLE_ADMIN' || 'ROLE_CUSTOMER') || bypassToken === true
+    ? 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJST0xFX0FETUlOIiwidXNlckRldGFpbHMiOnsiZmlyc3ROYW1lIjoiYWRtaW4iLCJsYXN0TmFtZSI6ImFkbWluIn0sImV4cCI6MTY0MDI1MDIyNH0.FGWZ9dQJzCB49oavWjNT7hhm4YiJ3p8oRqfwM0FP2RUiY0FZ-MQo1J1_fujKCAKrRuwZ1Sjeka5_HuroSis5pA' 
+    : 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJST0xFX0FETUlOIiwidXNlckRldGFpbHMiOnsiZmlyc3ROYW1lIjoiYWRtaW4iLCJsYXN0TmFtZSI6ImFkbWluIn0sImV4cCI6MTY0MDI1MDIyNH0.FGWZ9dQJzCB49oavWjNT7hhm4YiJ3p8oRqfwM0FP2RUiY0FZ-MQo1J1_fujKCAKrRuwZ1Sjeka5_HuroSis5pA'
 }
 
 function isAuthorized(req) {
-  return req.headers.authorization === 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkZXZlbG9wZXIiLCJhdXRoIjoiUk9MRV9BRE1JTiIsImV4cCI6MTYzNzY5MTY4Nn0.GCd9tDd9i7N66QET71laZIBzjWILqnP4LVG50kBHen0v6hREUs2FBFvnMQy5y4D05vJr5OyCx0t_kOBVQ5AVMQ' ? true : false;
+  return req.headers.authorization === 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJST0xFX0FETUlOIiwidXNlckRldGFpbHMiOnsiZmlyc3ROYW1lIjoiYWRtaW4iLCJsYXN0TmFtZSI6ImFkbWluIn0sImV4cCI6MTY0MDI1MDIyNH0.FGWZ9dQJzCB49oavWjNT7hhm4YiJ3p8oRqfwM0FP2RUiY0FZ-MQo1J1_fujKCAKrRuwZ1Sjeka5_HuroSis5pA' ? true : false;
 }
 
 function readUsers() {
