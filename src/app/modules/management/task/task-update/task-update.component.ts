@@ -54,7 +54,7 @@ export class TaskUpdateComponent implements OnInit {
 
   }
 
-  setTaskUpInitForm(): void { console.log(this.data)
+  setTaskUpInitForm(): void { 
     this.taskUpInitForm.patchValue({
       id: this.data.id,
       title: this.data.title,

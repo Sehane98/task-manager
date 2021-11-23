@@ -7,6 +7,28 @@
       "email": "sehane@gmail.com",
       "password": "admin123",
       "role": "ROLE_ADMIN"
+    },
+    {
+      "organizationName": "Organization name",
+      "phone": "0559772771",
+      "address": "baku",
+      "username": "username",
+      "password": "123456",
+      "email": "username@gmail.com",
+      "role": "ROLE_ADMIN",
+      "id_token": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkZXZlbG9wZXIiLCJhdXRoIjoiUk9MRV9BRE1JTiIsImV4cCI6MTYzNzY5MTY4Nn0.GCd9tDd9i7N66QET71laZIBzjWILqnP4LVG50kBHen0v6hREUs2FBFvnMQy5y4D05vJr5OyCx0t_kOBVQ5AVMQ",
+      "id": 2
+    },
+    {
+      "organizationName": "Organization name 2",
+      "phone": "066363663627",
+      "address": "yeni",
+      "username": "login",
+      "password": "123456",
+      "email": "nazrin@mail.com",
+      "role": "ROLE_ADMIN",
+      "id_token": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkZXZlbG9wZXIiLCJhdXRoIjoiUk9MRV9BRE1JTiIsImV4cCI6MTYzNzY5MTY4Nn0.GCd9tDd9i7N66QET71laZIBzjWILqnP4LVG50kBHen0v6hREUs2FBFvnMQy5y4D05vJr5OyCx0t_kOBVQ5AVMQ",
+      "id": 3
     }
   ],
   "customers": [
@@ -36,6 +58,15 @@
       "role": "ROLE_USER",
       "userId": 1,
       "id": 3
+    },
+    {
+      "name": "sehane",
+      "password": "defaultPassword",
+      "surname": "hds",
+      "email": "ajj@mail.ciom",
+      "role": "ROLE_USER",
+      "userId": 3,
+      "id": 4
     }
   ],
   "tasks": [
@@ -96,6 +127,48 @@
       "status": "LOW",
       "userId": 2,
       "id": 5
+    }
+  ],
+  "test": [
+    {
+      "organizationName": "tettsttst",
+      "phone": "733738",
+      "address": "88282",
+      "username": "org1",
+      "email": "sehane@mail.com",
+      "role": "ROLE_ADMIN"
+    },
+    {
+      "organizationName": "test organization",
+      "phone": "test organization",
+      "address": "test organization",
+      "username": "org123",
+      "email": "testorganization@mail.com",
+      "role": "ROLE_ADMIN"
+    },
+    {
+      "organizationName": "admin",
+      "phone": "admin",
+      "address": "admin",
+      "username": "admin",
+      "email": "admin@mail.com",
+      "role": "ROLE_ADMIN"
+    },
+    {
+      "organizationName": "test organization",
+      "phone": "test organization",
+      "address": "test organization",
+      "username": "testtest",
+      "email": "testorganization@mail.com",
+      "role": "ROLE_ADMIN"
+    },
+    {
+      "organizationName": "test",
+      "phone": "676767",
+      "address": "test",
+      "username": "test",
+      "email": "test@mail.com",
+      "role": "ROLE_ADMIN"
     }
   ]
 }

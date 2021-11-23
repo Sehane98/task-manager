@@ -41,7 +41,6 @@ export class LoginComponent implements OnInit {
   }
 
   changeRole(e: any) {
-    console.log(e);
     if (this.loginForm.get('role')?.value === Authority.ROLE_USER) {
       this.loginForm.get('email')?.setValidators([Validators.email, Validators.required])
       this.loginForm.get('username')?.clearValidators();

@@ -5,7 +5,8 @@
   <span>Task Managment</span>
   <span class="example-spacer"></span>
   <span>{{ currentUser?.organizationName }}</span>
-  <button mat-icon-button class="example-icon" (click)="logout()">
+  <span>{{ currentUser?.name + ' ' + currentUser?.surname}}</span>
+  <button mat-icon-button class="example-icon pr-3" (click)="logout()">
     <mat-icon>logout</mat-icon>
   </button>
 </mat-toolbar>

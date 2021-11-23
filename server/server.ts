@@ -10,7 +10,7 @@ server.use(middlewares);
 server.use(jsonServer.bodyParser);
 
 server.post('/login', (req, res, next) => { 
-  const users = readUsers();
+  const users = readUsers()
 
   const user = users.filter(
     u => u.username === req.body.username && u.password === req.body.password && u.role === req.body.role
@@ -19,7 +19,7 @@ server.post('/login', (req, res, next) => {
   if (user) {
     res.send({ ...formatUser(user), id_token: checkIfAdmin(user) });
   } else {
-    res.status(401).send(JSON.stringify({title: 'Incorrect username or password'}));
+    res.status(401).send(JSON.stringify({title: 'Incorrect username or password', users: users}));
   }
 });
 
@@ -38,15 +38,21 @@ server.post('/login-customer', (req, res, next) => {
 });
 
 server.post('/register', (req, res) => {
-  const users = readUsers();
-  const user = users.filter(u => u.username === req.body.username)[0];
+  const db = router.db; // Assign the lowdb instance
+  const users = db.get('users');
+  const readUserData = readUsers();
+
+  const user = readUserData.filter(u => u.username === req.body.username)[0];
 
   if (user === undefined || user === null) {
-    res.send({
-      ...formatUser(req.body),
-      id_token: checkIfAdmin(req.body), users: db.users
-    });
-    db.users.push(req.body);
+    const data = { 
+      ...req.body,
+      id_token: checkIfAdmin(req.body), 
+      id: readUserData.length + 1
+    }
+    res.send(data);
+    users.push(data).write();
+
   } else {
     res.status(500).send(JSON.stringify({title: 'User already exists'}));
   }
@@ -69,6 +75,7 @@ server.use('/users', (req, res, next) => {
 
 });
 
+  
 server.use(router);
 server.listen(3000, () => {
   console.log('JSON Server is running');
@@ -81,7 +88,6 @@ function formatUser(user) {
 }
 
 function checkIfAdmin(user, bypassToken = false) {
-  console.log(user)
   return user.role === ('ROLE_ADMIN' || 'ROLE_USER') || bypassToken === true
     ? 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkZXZlbG9wZXIiLCJhdXRoIjoiUk9MRV9BRE1JTiIsImV4cCI6MTYzNzY5MTY4Nn0.GCd9tDd9i7N66QET71laZIBzjWILqnP4LVG50kBHen0v6hREUs2FBFvnMQy5y4D05vJr5OyCx0t_kOBVQ5AVMQ' 
     : 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkZXZlbG9wZXIiLCJhdXRoIjoiUk9MRV9BRE1JTiIsImV4cCI6MTYzNzY5MTY4Nn0.GCd9tDd9i7N66QET71laZIBzjWILqnP4LVG50kBHen0v6hREUs2FBFvnMQy5y4D05vJr5OyCx0t_kOBVQ5AVMQ'

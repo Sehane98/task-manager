@@ -29,7 +29,7 @@ export class CustomerUpdateComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data) { }
 
   ngOnInit(): void {
-    this.initCustomerUpInitForm(); console.log(this.currentUser.id)
+    this.initCustomerUpInitForm(); 
   }
 
   initCustomerUpInitForm(): void {

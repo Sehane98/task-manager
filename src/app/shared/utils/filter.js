@@ -1,4 +1,4 @@
 export default {
-  login: "login_like",
-  title: "title_like"
+  customer: "customer_like",
+  userId: "userId_like"
 };

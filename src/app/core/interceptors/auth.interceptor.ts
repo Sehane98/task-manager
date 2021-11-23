@@ -23,8 +23,8 @@ export class AuthInterceptor implements HttpInterceptor {
           Authorization: `Bearer ${this.authService.getToken()}`,
         },
       });
-    } else if (!req.url.includes(HttpConf.URL.auth)) { console.log('here')
-      if (req.url.includes(HttpConf.URL.registration)) { console.log('here')
+    } else if (!req.url.includes(HttpConf.URL.auth)) { 
+      if (req.url.includes(HttpConf.URL.registration)) { 
         return next.handle(req);
       }
       return NEVER;

@@ -36,7 +36,6 @@ export class MainLayoutComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.currentUser)
   }
 
   logout(): void {

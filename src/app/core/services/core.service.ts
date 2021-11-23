@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { environment as env } from '../../../environments/environment';
+import { Observable, Subject } from 'rxjs';
 import filter from '../../shared/utils/filter.js';
 
 @Injectable({
@@ -9,7 +8,6 @@ import filter from '../../shared/utils/filter.js';
 })
 export class CoreService {
   constructor(private http: HttpClient) {}
-  public triggerGetRangeByTariff: BehaviorSubject<boolean> = new BehaviorSubject(null as any);
 
   reformatParams(params: any = {}) {
     let new_params = {};

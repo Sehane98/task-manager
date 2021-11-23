@@ -66,7 +66,7 @@ export class CustomerListComponent implements OnInit {
       sort: ['id,desc'],
       size: [15],
       userId: [this.currentUser.id],
-    });console.log(this.currentUser)
+    });
 
     this.subscribeFilterForm();
   }

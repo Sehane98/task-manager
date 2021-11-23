@@ -6,11 +6,13 @@ export class HttpConf {
 
   public static URL = {
     auth: `${HttpConf.REST_API}/login`,
+    login_customer: `${HttpConf.REST_API}/login-customer`,
     registration: `${HttpConf.REST_API}/register`,
     users: `${HttpConf.REST_API}/users`,
     customers: `${HttpConf.REST_API}/customers`,
     tasks: `${HttpConf.REST_API}/tasks`,
-    login_customer: `${HttpConf.REST_API}/login-customer`   
+    test: `${HttpConf.REST_API}/register`,
+
   };
 
 }

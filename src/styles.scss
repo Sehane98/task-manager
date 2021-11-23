@@ -9,7 +9,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .app-body {
     height: 100%;
-    background-color: bisque;
+    background-color: #c5cbd4;
 }
 
 table {
@@ -55,6 +55,10 @@ i.fa {
 
 .pr-0 {
     padding-right: 0;
+}
+
+.pr-3 {
+    padding-left: 1.5rem !important;
 }
 
 .m-0 {
